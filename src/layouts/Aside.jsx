@@ -23,6 +23,7 @@ const Aside = () => {
   const storeSelectedInteraction = useSelectedInteraction(
     (state) => state.storeSelectedInteraction,
   );
+
   const selectInteraction = (i) => () => {
     storeSelectedInteraction(i);
   };

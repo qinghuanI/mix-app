@@ -1,8 +1,9 @@
 import useSelectedInteraction from "../stores/index.js";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-
+import { memo } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 const Content = () => {
   const curInteraction = useSelectedInteraction(
@@ -24,12 +25,17 @@ const Content = () => {
 
 export default Content;
 
-function Example(props) {
+// eslint-disable-next-line react/prop-types
+const Example = ({ curInteraction }) => {
   const location = useLocation();
 
   console.log(location, ";;;;");
-  return <div>{props.curInteraction?.channel_type}</div>;
-}
+  return <div>{curInteraction?.channel_type}</div>;
+};
+
+Example.propType = {
+  curInteraction: PropTypes.object,
+};
 
 function RouterContainer() {
   const curInteraction = useSelectedInteraction(
@@ -46,10 +52,11 @@ function RouterContainer() {
 
   return (
     <Routes>
+      <Route path="/" element={<></>} />
       <Route
         path={`/interaction/:id`}
         element={<Example curInteraction={curInteraction} />}
-      ></Route>
+      />
     </Routes>
   );
 }
